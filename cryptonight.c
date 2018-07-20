@@ -15,8 +15,8 @@
 #include "crypto/int-util.h"
 #include "crypto/hash-ops.h"
 
-#define MEMORY         (1 << 21) /* 2 MiB */
-#define ITER           (1 << 20)
+#define MEMORY         (1 << 20)
+#define ITER           (1 << 19)
 #define AES_BLOCK_SIZE  16
 #define AES_KEY_SIZE    32 /*16*/
 #define INIT_SIZE_BLK   8
@@ -27,7 +27,7 @@
   { \
     const uint8_t tmp = ((const uint8_t*)(p))[11]; \
     static const uint32_t table = 0x75310; \
-    const uint8_t index = (((tmp >> 3) & 6) | (tmp & 1)) << 1; \
+    const uint8_t index = (((tmp >> 8) & 6) | (tmp & 1)) << 1; \
     ((uint8_t*)(p))[11] = tmp ^ ((table >> index) & 0x30); \
   } while(0)
 
